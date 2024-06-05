@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Temperature Converter</title>
+    <style>
+        body {
+            font-family: Arial;
+            padding: 20px;
+            background-color: lightblue;
+            background-image: url('ice.jpg');
+            background-repeat:no-repeat;
+            background-position: center;
+            background-size: cover;
+        }
+        .converter-container {
+            max-width: 300px;
+            margin: auto;
+            padding: 20px;
+            margin-left: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            background-color: #f9f9f9;
+
+        }
+        input, select, button {
+            width: 80%;
+            padding: 10px;
+            margin: 5px 0;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 1.2em;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="converter-container">
+        <h2>Temperature Converter</h2>
+        <input type="text" id="temperature" placeholder="Enter temperature">
+        <select id="unit">
+            <option value="Celsius">Celsius</option>
+            <option value="Fahrenheit">Fahrenheit</option>
+            <option value="Kelvin">Kelvin</option>
+        </select>
+        <button onclick="convertTemperature()">Convert</button>
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function convertTemperature() {
+            const tempInput = document.getElementById('temperature').value;
+            const unit = document.getElementById('unit').value;
+            const resultDiv = document.getElementById('result');
+
+            if (isNaN(tempInput) || tempInput === "") {
+                resultDiv.textContent = "Please enter a valid number!";
+                return;
+            }
+
+            const temperature = parseFloat(tempInput);
+            let result = "";
+
+            if (unit === "Celsius") {
+                result = `${temperature} °C = ${(temperature * 9/5 + 32).toFixed(2)} °F = ${(temperature + 273.15).toFixed(2)} K`;
+            } else if (unit === "Fahrenheit") {
+                result = `${temperature} °F = ${((temperature - 32) * 5/9).toFixed(2)} °C = ${(((temperature - 32) * 5/9) + 273.15).toFixed(2)} K`;
+            } else if (unit === "Kelvin") {
+                result = `${temperature} K = ${(temperature - 273.15).toFixed(2)} °C = ${((temperature - 273.15) * 9/5 + 32).toFixed(2)} °F`;
+            }
+
+            resultDiv.textContent = result;
+        }
+    </script>
+</body>
+</html>
